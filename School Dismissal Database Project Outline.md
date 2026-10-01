@@ -1,0 +1,12 @@
+# School Dismissal Database Project Outline
+## Faith Igomodu
+## Individual Project Outline 
+
+1.	Review and Analyze the Project Requirements
+a.	Evaluate the purpose of the school dismissal database project.  
+i.	The school dismissal database project applies the database design and development skills and concepts covered in the DBST652 course and demonstrates the students’ mastery through the design and implementation of a database for school dismissal.   
+b.	List project components and deliverables.
+i.	Queries_Individual_Project.txt 
+ii.	DDL_Individual_Project.txt 
+iii.	An annotated voice-over PowerPoint summary presentation of the design of the database.
+iv.	Design_Individual_Project.zip
