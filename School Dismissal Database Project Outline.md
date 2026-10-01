@@ -1,12 +1,26 @@
 # School Dismissal Database Project Outline
-## Faith Igomodu
-## Individual Project Outline 
+### By: Faith Igomodu
+### Individual Project Outline 
 
  1.	Review and Analyze the Project Requirements
      * a.	Evaluate the purpose of the school dismissal database project.  
-         * i.	The school dismissal database project applies the database design and development skills and concepts covered in            the DBST652 course and demonstrates the students’ mastery through the design and implementation of a database for              school dismissal.   
+         * i.	This project applies the database design and development skills and concepts covered in the DBST652 course and                 demonstrates the students’ mastery through the design and implementation of a database for school dismissal.   
       * b. List project components and deliverables.
            * i.	Queries_Individual_Project.txt 
            * ii.	DDL_Individual_Project.txt 
            * iii.	An annotated voice-over PowerPoint summary presentation of the design of the database.
            * iv.	Design_Individual_Project.zip
+2.	 Convert project requirements to business rules 
+      * a)	First name and last names of the students who attend the school and the days of the week the student is in after-           school activities.
+            * i.	Each student is uniquely identified using a primary key. Each student has a unique student_id, first name,                  and last name. A student can attend after-school activities more than once per week.
+      * b)	The first and last names and the days of the week of the adults that can pick up a student from school. 
+            * i.	An adult can be authorized to pick up one or more students from the school on a weekday.
+      * c)	A description of the of the adult that can pick up a student from school. I.e., parent, mother, father, aunt,                  uncle, legal guardian, au pair, nanny, housekeeper, etc.
+             * i.	Each adult authorized to pick up the student, their relationship and role to the student, is recorded in the                database. 
+             *  ii.	The weekdays the authorized adult can pick up a student are recorded. 
+       * d)	A description of the of the organization that can pick up a student from school I.e. YMCA, Kuman Math and Reading              Center, Kids Robotic Academy, etc.
+            * i.	Each organization authorized to pick up a student exists in the database. 
+            * ii.	The weekday they are permitted to pick up a student is recorded in the database. 
+        * e)	The names of the students who ride a bus home.
+            * i.	The students who ride the school bus home are assigned a bus. 
+            * ii.	The database captures the days on which they take the bus. 
