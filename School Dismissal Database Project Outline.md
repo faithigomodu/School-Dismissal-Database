@@ -10,7 +10,9 @@
            * ii.	DDL_Individual_Project.txt 
            * iii.	An annotated voice-over PowerPoint summary presentation of the design of the database.
            * iv.	Design_Individual_Project.zip
-2.	 Convert project requirements to business rules 
+             
+2.	 Convert project requirements to business rules
+   
       * a)	First name and last names of the students who attend the school and the days of the week the student is in after-           school activities.
             * i.	Each student is uniquely identified using a primary key. Each student has a unique student_id, first name,                  and last name. A student can attend after-school activities more than once per week.
       * b)	The first and last names and the days of the week of the adults that can pick up a student from school. 
@@ -23,4 +25,16 @@
             * ii.	The weekday they are permitted to pick up a student is recorded in the database. 
         * e)	The names of the students who ride a bus home.
             * i.	The students who ride the school bus home are assigned a bus. 
-            * ii.	The database captures the days on which they take the bus. 
+            * ii.	The database captures the days on which they take the bus.
+              
+4.	Defined Entities and Attributes  
+
+    1.	STUDENT: student_id, first_name, last_name, phone_number, address
+    2.	ADULT: adult_id, first_name, last_name, phone_number, address, relationship ( aunt, father, mother, grandmother, grandfather, uncle, legal guardian, babby sitter, brother, sister, uncle )  
+    3.	ORGANIZATION: organization_id, name, address, phone, description 
+    4.	DISMISSAL_EVENT: student_id, date, pickup_address, organization_id,adult_id, time, authorization_status,weekday 
+    5.	SCHOOL_BUS: school_bus_id, weekday_schedule 
+    6.	 ACTIVITY: activity_id, activity_name: (choir, art, band, soccer, basketball, theater, writing, Spanish, Mandrin) 
+    7.	STUDENT_ACTIVITY: student_id, activity_id, weekday 
+    8.	STUDENT_BUS_ASSIGNMENT: student_id, school_bus_id, weekday 
+    9.	PICKUP_SCHEDULE: organization_id, adult_id, student_id, date, time, weekday 
