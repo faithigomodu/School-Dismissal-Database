@@ -1,1 +1,231 @@
+/*
+Author: Faith Igomodu
+Assignment: Individual Project | IDA B WELLS School Dismissal Database 
+*/
+
+-----------------------------------------------------------------------------------    
+ --CREATE TABLE |  IDA B WELLS Database Part 1 
+-----------------------------------------------------------------------------------
+
+-- Creates the ADULT entity 
+CREATE TABLE ADULT (
+
+     --Attributes definition 	
+     adult_id     NUMBER(9) PRIMARY KEY, 
+     first_name   VARCHAR2 (120)  NOT NULL, 
+     last_name    VARCHAR2 (120) NOT NULL, 
+     phone_number VARCHAR2 (60) UNIQUE, 
+     address      VARCHAR2 (120)
+	
+     );
+
+-- Creates the STUDENT entity 
+CREATE TABLE STUDENT (
+
+     --Attributes definition 	
+     student_id     NUMBER(9) PRIMARY KEY, 
+     first_name   VARCHAR2 (120)  NOT NULL, 
+     last_name    VARCHAR2 (120) NOT NULL, 
+     phone_number VARCHAR2 (60) UNIQUE, 
+     address      VARCHAR2 (120)
+	
+     );	 
+
+-- Creates the ACTIVITY entity 
+CREATE TABLE ACTIVITY (
+
+     --Attributes definition 	
+     activity_id     NUMBER(9) PRIMARY KEY, 
+     activity_name   VARCHAR2 (120)  NOT NULL 
+     	
+     );	
+
+-- Creates the ORGANIZATION entity 
+CREATE TABLE ORGANIZATION (
+
+     --Attributes definition 	
+     organization_id     NUMBER(9) PRIMARY KEY, 
+     name            VARCHAR2(120) NOT NULL,
+     description     VARCHAR2(120),
+     address         VARCHAR2(120),
+     phone_number    VARCHAR2(120) UNIQUE    
+     	
+     );	
+
+-- Creates the SCHOOL_BUS entity 
+CREATE TABLE SCHOOL_BUS (
+
+     --Attributes definition 	
+     bus_id     NUMBER(9) PRIMARY KEY, 
+     weekday_schedule   VARCHAR2 (120)  NOT NULL 
+     	
+     );	
+
+--Creates the ADULT_STUDENT junction table 
+CREATE TABLE ADULT_STUDENT (
+
+     --Attributes definition 
+     adult_id	  NUMBER(9),
+     student_id   NUMBER(9),
+     relationship VARCHAR2 (120)  NOT NULL, --aunt, father, mother, grandmother, grandfather, uncle, legal guardian, 						babysitter, brother, sister
+     
+     --Primary key definition 
+     CONSTRAINT pk_adult_student PRIMARY KEY (adult_id, student_id),
+     
+     --Adult foreign key definition 
+     CONSTRAINT fk_as_adult
+         FOREIGN KEY (adult_id)
+	 REFERENCES ADULT(adult_id), 
+
+      --Student foreign key definition 
+     CONSTRAINT fk_as_student
+         FOREIGN KEY (student_id)
+	 REFERENCES STUDENT(student_id)      
+
+  );
+
+
+  
+--Creates the STUDENT_ACTIVITY junction table 
+CREATE TABLE STUDENT_ACTIVITY (
+
+     --Attributes definition 
+     activity_id  NUMBER(9),
+     student_id   NUMBER(9),
+     time         TIMESTAMP,
+     weekday      DATE,
+     
+     
+     --Primary key definition 
+     CONSTRAINT pk_student_activity PRIMARY KEY (activity_id, student_id),
+     
+     --Student foreign key definition 
+     CONSTRAINT fk_sa_student
+         FOREIGN KEY (student_id)
+	 REFERENCES STUDENT (student_id), 
+
+      --Activity foreign key definition 
+     CONSTRAINT fk_sa_activity
+         FOREIGN KEY (activity_id)
+	 REFERENCES ACTIVITY(activity_id)      
+
+  );
+
+
+--Creates the PICKUP_AUTHORIZATION junction table 
+CREATE TABLE PICKUP_AUTHORIZATION  (
+
+     --Attributes definition 
+     pickup_authorization_id  NUMBER(9) PRIMARY KEY,
+     pickup_date  DATE,
+     pickup_time  TIMESTAMP,
+     picked_up_by VARCHAR2(100) NOT NULL, 
+     authorized_status VARCHAR2(100) CHECK(authorized_status IN ('approved', 'denied')), 
+     student_id  NUMBER(9),
+     adult_id    NUMBER(9),
+     bus_id      NUMBER(9),
+     organization_id  NUMBER(9),
+
+     
+     
+      --Student foreign key definition 
+     CONSTRAINT fk_pua_student
+         FOREIGN KEY (student_id)
+	 REFERENCES STUDENT (student_id), 
+
+      --Adult foreign key definition 
+     CONSTRAINT fk_pua_adult
+         FOREIGN KEY (adult_id)
+	 REFERENCES ADULT (adult_id),  
+
+      --Organization foreign key definition 
+     CONSTRAINT fk_pua_organization
+         FOREIGN KEY (organization_id)
+	 REFERENCES ORGANIZATION (organization_id), 
+
+      --School bus foreign key definition 
+     CONSTRAINT fk_pua_bus
+         FOREIGN KEY (bus_id)
+	 REFERENCES SCHOOL_BUS(bus_id)    
+
+  ); 
+
+-----------------------------------------------------------------------------------    
+ -- INSERT INTO |  IDA B WELLS Database Part 2 
+-----------------------------------------------------------------------------------
+
+--Adults   
+INSERT INTO ADULT (adult_id, first_name, last_name, phone_number, address) VALUES (101, 'Janet', 'William', '222-810-0101', '98123 Main St');
+INSERT INTO ADULT (adult_id, first_name, last_name, phone_number, address) VALUES (102, 'Jordan', 'Jackson', '222-360-0102', '85456 Oak Ave');
+INSERT INTO ADULT (adult_id, first_name, last_name, phone_number, address) VALUES (103, 'Megan', 'Johnson', '222-865-0103', '02789 Pine Rd');
+INSERT INTO ADULT (adult_id, first_name, last_name, phone_number, address) VALUES (104, 'Justice', 'Akinboade', '222-955-0104', '42321 Elm St');
+INSERT INTO ADULT (adult_id, first_name, last_name, phone_number, address) VALUES (105, 'Michael', 'Brown', '222-565-0105', '36654 Maple Dr');
+INSERT INTO ADULT (adult_id, first_name, last_name, phone_number, address) VALUES (106, 'Jose', 'Lopez', '222-455-0106', '6987 Cedar Ln');
+INSERT INTO ADULT (adult_id, first_name, last_name, phone_number, address) VALUES (107, 'Young', 'Lee', '222-051-0107', '2111 Birch St');
+
+--Students
+INSERT INTO STUDENT (student_id, first_name, last_name, phone_number, address) VALUES (301, 'Alex', 'William', '222-055-0201', '98123 Main St');
+INSERT INTO STUDENT (student_id, first_name, last_name, phone_number, address) VALUES (302, 'Mercy', 'Akinboade', '222-155-0202', '42321 Elm St');
+INSERT INTO STUDENT (student_id, first_name, last_name, phone_number, address) VALUES (303, 'Nichi', 'Johnson', '222-255-0203', '02789 Pine Rd');
+INSERT INTO STUDENT (student_id, first_name, last_name, phone_number, address) VALUES (304, 'Selena', 'Lopez', '222-355-0204', '6987 Cedar Ln');
+INSERT INTO STUDENT (student_id, first_name, last_name, phone_number, address) VALUES (305, 'Zhang', 'Lee', '222-455-0205', '2111 Birch St');
+
+--Activity 
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (401, 'Mandarin ');
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (402, 'Orchestra');
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (403, 'Spanish');
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (404, 'Sociology');
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (405, 'Hiking');
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (406, 'Painting');
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (407, 'Dance');
+INSERT INTO ACTIVITY (activity_id, activity_name) VALUES (408, 'Ballet');
+
+
+--Adult_student 
+INSERT INTO ADULT_STUDENT (adult_id, student_id, relationship) VALUES (101, 301, 'father');
+INSERT INTO ADULT_STUDENT (adult_id, student_id, relationship) VALUES (102, 302, 'grandfather');
+INSERT INTO ADULT_STUDENT (adult_id, student_id, relationship) VALUES (103, 303, 'father');
+INSERT INTO ADULT_STUDENT (adult_id, student_id, relationship) VALUES (106, 303, 'uncle');
+INSERT INTO ADULT_STUDENT (adult_id, student_id, relationship) VALUES (105, 304, 'father');
+INSERT INTO ADULT_STUDENT (adult_id, student_id, relationship) VALUES (107, 305, 'father');
+INSERT INTO ADULT_STUDENT (adult_id, student_id, relationship) VALUES (104, 301, 'brother');
+
+--Organization 
+INSERT INTO ORGANIZATION (organization_id, name, description, address, phone_number) 
+VALUES (201, 'Dance and Ballet Instruction  ', 'After school dance program', '742 Evergreen Terr', '222-955-1001');
+INSERT INTO ORGANIZATION (organization_id, name, description, address, phone_number) 
+VALUES (202, 'IDA B Wells School of Art', 'Art and painting program', '800 Parkway Dr', '222-005-1002');
+INSERT INTO ORGANIZATION (organization_id, name, description, address, phone_number) 
+VALUES (203, 'Metro YMCA', 'Fitness and youth sports', '500 Center St', '222-015-1003');
+INSERT INTO ORGANIZATION (organization_id, name, description, address, phone_number) 
+VALUES (204, 'Language Teaching Academy', 'Language learning after-school program', '310 Tech Way', '222-605-1004');
+
+
+--School Bus
+INSERT INTO SCHOOL_BUS (bus_id, weekday_schedule) VALUES (501, 'Route 001 - Morning Only');
+INSERT INTO SCHOOL_BUS (bus_id, weekday_schedule) VALUES (502, 'Route 020 - Morning and Afternoon');
+INSERT INTO SCHOOL_BUS (bus_id, weekday_schedule) VALUES (503, 'Route 003 - Afternoon Only');
+
+--Student Activity 
+INSERT INTO STUDENT_ACTIVITY (activity_id, student_id, time, weekday) 
+VALUES (402, 302, TIMESTAMP '2026-03-02 16:00:00', DATE '2026-03-02');
+INSERT INTO STUDENT_ACTIVITY (activity_id, student_id, time, weekday) 
+VALUES (403, 303, TIMESTAMP '2026-03-03 15:00:00', DATE '2026-03-03');
+INSERT INTO STUDENT_ACTIVITY (activity_id, student_id, time, weekday) 
+VALUES (405, 301, TIMESTAMP '2026-03-04 17:00:00', DATE '2026-03-04');
+INSERT INTO STUDENT_ACTIVITY (activity_id, student_id, time, weekday) 
+VALUES (404, 304, TIMESTAMP '2026-03-05 16:30:00', DATE '2026-03-05');
+INSERT INTO STUDENT_ACTIVITY (activity_id, student_id, time, weekday) 
+VALUES (407, 305, TIMESTAMP '2026-03-06 15:30:00', DATE '2026-03-06');
+
+--Pickup authorization
+INSERT INTO PICKUP_AUTHORIZATION (pickup_authorization_id, pickup_date, pickup_time, picked_up_by, authorized_status, student_id, adult_id, bus_id, organization_id) 
+VALUES (601, DATE '2026-03-01', TIMESTAMP '2026-03-01 15:00:00', 'Janet William', 'approved', 301, 101, 501, NULL);
+INSERT INTO PICKUP_AUTHORIZATION (pickup_authorization_id, pickup_date, pickup_time, picked_up_by, authorized_status, student_id, adult_id, bus_id, organization_id) 
+VALUES (602, DATE '2026-03-02', TIMESTAMP '2026-03-02 16:30:00', 'Justice Akinboade', 'approved', 302, 104, NULL, 201);
+INSERT INTO PICKUP_AUTHORIZATION (pickup_authorization_id, pickup_date, pickup_time, picked_up_by, authorized_status, student_id, adult_id, bus_id, organization_id) 
+VALUES (603, DATE '2026-03-03', TIMESTAMP '2026-03-03 15:30:00', 'Megan Johnson', 'approved', 303, 103, 502, NULL);
+INSERT INTO PICKUP_AUTHORIZATION (pickup_authorization_id, pickup_date, pickup_time, picked_up_by, authorized_status, student_id, adult_id, bus_id, organization_id) 
+VALUES (604, DATE '2026-03-04', TIMESTAMP '2026-03-04 17:00:00', 'Language Teaching Academy', 'approved', 304, NULL, NULL, 204);
+
 
